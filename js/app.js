@@ -18,6 +18,7 @@ const deckDOM = document.querySelector(".deck");
 const moveDOM = document.querySelector(".moves");
 const starsDOM = document.querySelector(".stars").getElementsByTagName("i");
 restartDOM.addEventListener("click", startGame);
+deckDOM.addEventListener("click", onCardClick)
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -44,6 +45,8 @@ function shuffle(array) {
 function resetGame() {
     updateStars();
     moveDOM.innerText = movedCount;
+
+    timesDOM.innerText = secondCount;
     const cardElements = document.getElementsByClassName("card");
     for (let cardIndex = 0; cardIndex < cardElements.length; cardIndex++) {
         cardElements[cardIndex].remove();
@@ -68,24 +71,26 @@ function createCard(card) {
     let newI = document.createElement('i');
     newI.classList.add("fa", card);
     newLi.appendChild(newI);
-    newLi.addEventListener("click", onCardClick);
+
     return newLi;
 }
 /**
  * @description event for clicking in card
  */
 function onCardClick(evt) {
-
+    if (evt.target.className !== "card")
+        return;
     const openedCard = evt.target;
-    if (!canOpenCard || openedCard.classList.contains("match") || openedCard.classList.contains("open show")) {
+    console.log(openedCard)
+    if (!canOpenCard || openedCard.classList.contains("match") || (openedCard.classList.contains("show") && openedCard.classList.contains("open"))) {
         return;
     }
     movedCount++;
     updateStars();
     moveDOM.innerText = movedCount;
     openShowCard(evt.target);
-    if (triedCards.length < 1) {
-        triedCards.push(openedCard);
+    console.log(triedCards.length);
+    if (triedCards.length <= 1) {
     } else {
         const firstCardTried = triedCards[0].firstChild;
         const secondCardTried = triedCards[1].firstChild;
@@ -123,18 +128,14 @@ function updateStars() {
         mUpdateStars = 1;
     }
 
-    if (mUpdateStars === currentStars) {
-        return;
-    }
-
     for (let i = 0; i < starsDOM.length; i++) {
-        if (i + 1 < currentStars) {
+        if (i < currentStars) {
             starsDOM[i].setAttribute("class", "fa fa-star");
         } else {
             starsDOM[i].setAttribute("class", "fa fa-star-o");
         }
     }
-
+    currentStars = mUpdateStars;
 }
 /**
  * @description change UI screen when user win the game
@@ -186,6 +187,7 @@ function startGame() {
     triedCards = [];
     currentStars = 3;
     secondCount = 0;
+
     resetGame();
     startTimer();
     updateStars();
