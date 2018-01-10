@@ -2,6 +2,13 @@
 
 ## How to play
 
-This is a memory matching card game. The goal is to match each card's icon with its pair. There are 16 cards and 8 pairs total. Click on a card, remember its icon and spot in the grid, then continue clicking other cards until you find its match. The game ends once all pairs are matched.
+The game board consists of sixteen "cards" arranged in a grid. The deck is made up of eight different pairs of cards, each with different symbols on one side. The cards are arranged randomly on the grid with the symbol face down. The gameplay rules are very simple: flip over two hidden cards at a time to locate the ones that match!
 
-Keep track of progress in the score panel area by viewing the star raiting, how many moves have been made, and how long it takes to finish the game.
+Each turn:
+
+* The player flips one card over to reveal its underlying symbol.
+* The player then turns over a second card, trying to find the corresponding card with the same symbol.
+* If the cards match, both cards stay flipped over.
+* If the cards do not match, both cards are flipped face down.
+
+The game ends once all cards have been correctly matched.
