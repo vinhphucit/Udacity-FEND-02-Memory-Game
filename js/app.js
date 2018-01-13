@@ -17,6 +17,14 @@ const timesDOM = document.querySelector(".times");
 const deckDOM = document.querySelector(".deck");
 const moveDOM = document.querySelector(".moves");
 const starsDOM = document.querySelector(".stars").getElementsByTagName("i");
+const endGameScreen = document.querySelector('.end-game-screen');
+const winMessage = document.querySelector('.congrats-message');
+const endGameReplay = document.querySelector('.play-again');
+
+endGameReplay.addEventListener("click", ()=>{
+    startGame();
+    endGameScreen.classList.toggle('end-game-show');
+});
 restartDOM.addEventListener("click", startGame);
 deckDOM.addEventListener("click", onCardClick)
 /*
@@ -144,7 +152,9 @@ function winMatch() {
     if (timer) {
         clearInterval(timer);
     }
-    alert("You won the game in  " + secondCount + " seconds. You received " + currentStars + " stars for this game. CONGRATULATION, click Restart Button to play again");
+
+    endGameScreen.classList.toggle('end-game-show');
+    winMessage.textContent = ("You won the game in  " + secondCount + " seconds. You received " + currentStars + " stars for this game. CONGRATULATION, click Restart Button to play again");
 }
 
 
